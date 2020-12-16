@@ -15,7 +15,6 @@ def validate_passport(passport):
 def solution(passports):
     valid_passports = sum(validate_passport(passport) for passport in passports)
     print(f"Solution: {valid_passports}")
-    pass
 
 if __name__ == '__main__':
     file_in = open('input.txt')
