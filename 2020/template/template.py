@@ -5,5 +5,5 @@ def solution(lines):
 
 if __name__ == '__main__':
     file_in = open('input.txt')
-    lines = (line.trim() for line in file_in.readlines())
+    lines = (line.strip() for line in file_in.readlines())
     solution(lines)
