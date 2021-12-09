@@ -13,7 +13,7 @@ def parse_line(line):
     elif dir == 'up':
         return (0, -amt)
     else:
-        raise Exception('bad line: {line}')
+        raise Exception(f"bad line: {line}")
     
 def solution(lines):
     ctrls = (parse_line(line) for line in lines)
