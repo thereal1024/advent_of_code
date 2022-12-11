@@ -5,7 +5,7 @@ def parsemonkey(section):
     res = {}
     res['list'] = list(map(int, lines[1].removeprefix('  Starting items: ').split(', ')))
     expr = lines[2].removeprefix('  Operation: new = ')
-    operand = -100000
+
     if expr == 'old + old':
         res['op'] = lambda x: x + x
     elif expr == 'old * old':

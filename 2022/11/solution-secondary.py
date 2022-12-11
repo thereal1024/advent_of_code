@@ -11,7 +11,7 @@ def parsemonkey(section):
     res = {}
     res['list'] = list(map(int, lines[1].removeprefix('  Starting items: ').split(', ')))
     expr = lines[2].removeprefix('  Operation: new = ')
-    operand = -100000
+
     if expr == 'old + old':
         res['op'] = lambda x: x + x
     elif expr == 'old * old':
@@ -36,7 +36,7 @@ def parsemonkey(section):
 def solution(sections):
     monkeys = [parsemonkey(section) for section in sections]
     
-    fac = prod(monkey['mod'] for monkey in monkeys)
+    mod = prod(monkey['mod'] for monkey in monkeys)
     
     for _ in range(10000):
         for monkey in monkeys:
@@ -44,7 +44,7 @@ def solution(sections):
             monkey['list'] = []
             for item in items:
                 item = monkey['op'](item)
-                item = item % fac
+                item = item % mod
                 testresult = monkey['test'](item)
                 fwd = monkey['fwd'][testresult]
                 monkeys[fwd]['list'].append(item)
