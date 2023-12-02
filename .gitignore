@@ -1,3 +1,6 @@
+# Ignore vscode
+.vscode/
+
 # kdev project files
 *.kdev4
 
