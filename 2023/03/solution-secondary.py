@@ -48,6 +48,7 @@ def solution(lines):
             total += gearnums[0] * gearnums[1]
 
     print('Solution: {}'.format(total))
+    
 
 if __name__ == '__main__':
     file_in = open('input.txt')
