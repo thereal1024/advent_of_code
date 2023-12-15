@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 def compress(val, c):
     val += ord(c)
@@ -19,31 +19,22 @@ def solution(lines):
     assert len(lines) == 1
     steps = lines[0].split(',')
     
-    boxes = defaultdict(list)
+    boxes = defaultdict(OrderedDict)
     for step in steps:
         if '=' in step:
             name, num = step.split('=')
             num = int(num)
             boxnum = hash(name)
-            found = False
-            for i in range(len(boxes[boxnum])):
-                if boxes[boxnum][i][0] == name:
-                    boxes[boxnum][i] = name, num
-                    found = True
-                    break
-            if not found:
-                boxes[boxnum].append((name, num))
+            boxes[boxnum][name] = num
         elif '-' in step:
             name = step.removesuffix('-')
             boxnum = hash(name)
-            for i in range(len(boxes[boxnum])):
-                if boxes[boxnum][i][0] == name:
-                    boxes[boxnum].pop(i)
-                    break
+            if name in boxes[boxnum]:
+                del boxes[boxnum][name]
     
     total = 0
     for boxnum, box in boxes.items():
-        for slotnum, (_, focus) in enumerate(box):
+        for slotnum, focus in enumerate(box.values()):
             focus = (boxnum + 1) * (slotnum + 1) * focus
             total += focus
     
