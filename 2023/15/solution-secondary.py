@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from collections import defaultdict, OrderedDict
+from collections import defaultdict
 
 def compress(val, c):
     val += ord(c)
@@ -19,7 +19,7 @@ def solution(lines):
     assert len(lines) == 1
     steps = lines[0].split(',')
     
-    boxes = defaultdict(OrderedDict)
+    boxes = defaultdict(dict)
     for step in steps:
         if '=' in step:
             name, num = step.split('=')
