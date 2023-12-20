@@ -11,6 +11,7 @@ SIG = {
 DEST = 'rx'
 
 from collections import defaultdict
+import itertools
 import math
 
 def solution(lines):
@@ -100,6 +101,11 @@ def solution(lines):
             # Probably Will not reach here. The cycle detection will work first.
             print(f'Solution: {presses}')
             exit()
+    
+    # problem domain restriction: relevant low pulses last one press (overridden)
+    for name in relinputs:
+        for ra, rb in itertools.pairwise(relpulse[False][name]):
+            assert rb == ra + 1 or rb == ra
     
     cycles = []
     for pl in relpulse[True].values():
