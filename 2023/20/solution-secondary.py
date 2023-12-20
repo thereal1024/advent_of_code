@@ -85,7 +85,7 @@ def solution(lines):
                 outsig = not any(conjstate[name].values())
                 for dest in conjunction[name]:
                     queue.append((name, dest, outsig))
-            elif name == 'rx' and signal == True:
+            elif name == DEST and signal == True:
                 return True
         return False
                     
