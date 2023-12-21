@@ -30,15 +30,6 @@ def solution(lines):
                 assert start == None
                 start = y, x
     
-    def step(points):
-        newpoints = set()
-        for point in points:
-            for dir in DIRS:
-                newpoint = point[0] + dir[0], point[1] + dir[1]
-                if newpoint in spaces:
-                    newpoints.add(newpoint)
-        return frozenset(newpoints)
-    
     @cache
     def maltpoints(malt, dir):
         if dir[0] == -1: # dy in coord
