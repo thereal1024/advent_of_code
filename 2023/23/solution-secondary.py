@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
-import heapq
-import sys
-
 from collections import defaultdict
-sys.setrecursionlimit(9000)
 
 DIRS = {
     'v': (1, 0),
@@ -18,7 +14,6 @@ def solution(lines):
     h, w = len(lines), len(lines[0])
     
     spaces = set()
-    forced = {}
     
     start = 0, 1
     end = h-1, w-2
@@ -27,8 +22,6 @@ def solution(lines):
         for x, c in enumerate(row):
             if c != '#':
                 spaces.add((y, x))
-            if c in DIRS:
-                forced[(y, x)] = DIRS[c]
 
     assert start in spaces and end in spaces
     
@@ -40,24 +33,21 @@ def solution(lines):
                 adjacency[point].add((1, newpoint))
     
     while True:
-        bridge = defaultdict(set)
+        newadj = defaultdict(set)
         bypass = set()
         for point, adjs in adjacency.items():
             if len(adjs) == 2:
                 (lc, lp), (rc, rp) = adjs
                 if rp not in bypass and lp not in bypass:
                     tc = lc + rc
-                    bridge[lp].add((tc, rp))
-                    bridge[rp].add((tc, lp))
+                    newadj[lp].add((tc, rp))
+                    newadj[rp].add((tc, lp))
                     bypass.add(point)
-        newadj = defaultdict(set)
         for point, adjs in adjacency.items():
             if point not in bypass:
                 for cost, adjpoint in adjs:
                     if adjpoint not in bypass:
                         newadj[point].add((cost, adjpoint))
-        for point, adjs in bridge.items():
-            newadj[point].update(adjs)
         
         if len(newadj) == len(adjacency):
             break
