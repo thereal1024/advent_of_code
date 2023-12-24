@@ -15,10 +15,9 @@ def solution(lines):
     tc = symbols('t(:3)')
 
     equations = []
-    for i, ((p, v), t) in enumerate(zip(hailstones, tc)):
+    for (p, v), t in zip(hailstones, tc):
         for tpc, tvc, pc, vc in zip(tp, tv, p, v):
-            c = Eq(tpc + tvc * t, pc + vc * t)
-            equations.append(c)
+            equations.append(Eq(tpc + tvc * t, pc + vc * t))
             
     soln = solve(equations, *(tp + tv + tc))
     assert len(soln) == 1
